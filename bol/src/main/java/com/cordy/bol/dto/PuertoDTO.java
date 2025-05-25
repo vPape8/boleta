@@ -1,4 +1,4 @@
-package com.cordy.bol.model;
+package com.cordy.bol.dto;
 
 
 import lombok.AllArgsConstructor;
@@ -8,7 +8,7 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 @AllArgsConstructor
 @Data
-public class Puerto {
+public class PuertoDTO {
 
     private int id_Puerto;
 

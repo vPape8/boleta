@@ -1,5 +1,8 @@
+
 package com.cordy.bol.service;
 
+import com.cordy.bol.dto.BuqueDTO;
+import com.cordy.bol.dto.PuertoDTO;
 import com.cordy.bol.model.*;
 import com.cordy.bol.repository.BoletaRepository;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -9,7 +12,7 @@ import org.springframework.transaction.annotation.Transactional;
 import java.util.List;
 
 @Service
-@Transactional("boletaTransactionManager")
+@Transactional
 public class BoletaService {
 
     @Autowired
@@ -21,8 +24,8 @@ public class BoletaService {
 
 
     public double calcular(String cod_buque, Long id_puerto) {
-        Buque buque = buqueService.buqueDB(cod_buque);
-        Puerto puerto = puertoService.puertoDB(id_puerto);
+        BuqueDTO buque = buqueService.buqueDB(cod_buque);
+        PuertoDTO puerto = puertoService.puertoDB(id_puerto);
 
         if(buque==null || puerto==null){
             throw new IllegalArgumentException("Datos incorrectos");
@@ -47,3 +50,4 @@ public class BoletaService {
                 orElseThrow(()-> new RuntimeException("Boleta no encontrada"));
     }
 }
+

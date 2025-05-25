@@ -1,4 +1,4 @@
-package com.cordy.bol.model;
+package com.cordy.bol.dto;
 
 
 import lombok.AllArgsConstructor;
@@ -10,7 +10,7 @@ import java.util.Date;
 @NoArgsConstructor
 @AllArgsConstructor
 @Data
-public class Buque {
+public class BuqueDTO {
 
     private String cod_Buque;
 
