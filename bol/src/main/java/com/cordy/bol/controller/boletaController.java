@@ -1,8 +1,7 @@
 package com.cordy.bol.controller;
 
-import com.cordy.bol.model.Boleta;
-import com.cordy.bol.service.BoletaService;
-import lombok.RequiredArgsConstructor;
+import java.util.List;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -10,7 +9,10 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
-import java.util.List;
+import com.cordy.bol.model.Boleta;
+import com.cordy.bol.service.BoletaService;
+
+import lombok.RequiredArgsConstructor;
 
 @RestController
 @RequestMapping("/api")
@@ -33,7 +35,7 @@ public class boletaController {
         }
     }
 
-    @GetMapping
+    @GetMapping("Boletas")
     public  ResponseEntity<List<Boleta>> listar(){
         List<Boleta> boletas = boletaService.findAll();
         if (boletas.isEmpty()){

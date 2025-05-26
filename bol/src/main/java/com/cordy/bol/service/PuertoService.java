@@ -1,13 +1,15 @@
 package com.cordy.bol.service;
 
-import com.cordy.bol.dto.PuertoDTO;
-import lombok.extern.slf4j.Slf4j;
 import org.hibernate.service.spi.ServiceException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
 import org.springframework.web.client.RestClientException;
 import org.springframework.web.client.RestTemplate;
+
+import com.cordy.bol.dto.PuertoDTO;
+
+import lombok.extern.slf4j.Slf4j;
 
 @Service
 @Slf4j
@@ -19,6 +21,10 @@ public class PuertoService {
     private final RestTemplate restTemplate;
 
     @Autowired
+    public PuertoService(@Value("${servicios.puerto.url}") String puertoServiceUrl, RestTemplate restTemplate) {
+        this.puertoServiceUrl = puertoServiceUrl;
+        this.restTemplate = restTemplate;
+    }
     public PuertoService(RestTemplate restTemplate) {
         this.restTemplate = restTemplate;
     }
