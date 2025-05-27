@@ -49,9 +49,9 @@ public class boletaController {
         return ResponseEntity.ok(boletas);
     }
 
-    @GetMapping("/GetBoletaID/")
+    @GetMapping("/GetBoletID/")
     public ResponseEntity<Boleta> getBoletaById(
-            @RequestParam(name = "idBoleta", required = true) String idBoleta
+            @RequestParam(name = "id_boleta", required = true) String idBoleta
     ) {
         log.info("Buscando boleta con id: {}", idBoleta);
         try {
@@ -73,13 +73,13 @@ public class boletaController {
         try {
             double costo = boletaService.calcular(codBuque, idPuerto);
 
-            // Crear una nueva instancia de Boleta
+            
             Boleta boleta = new Boleta();
-            boleta.setIdBoleta(codBuque + "-" + idPuerto); // Generar un ID único
+            boleta.setIdBoleta(codBuque + "-" + idPuerto); 
             boleta.setMonto(costo);
             boleta.setFecha_emision(new java.sql.Date(System.currentTimeMillis()));
 
-            // Guardar en la base de datos
+            
             Boleta savedBoleta = boletaService.save(boleta);
 
             return ResponseEntity.ok(savedBoleta);
