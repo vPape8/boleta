@@ -1,6 +1,6 @@
 package com.cordy.bol.service;
 
-import org.springframework.beans.factory.annotation.Autowired;
+
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
 import org.springframework.web.client.RestClientException;
@@ -8,12 +8,13 @@ import org.springframework.web.client.RestTemplate;
 
 import com.cordy.bol.dto.BuqueDTO;
 
+import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 
 
 @Slf4j
 @Service
-
+@RequiredArgsConstructor
 public class BuqueService {
 
     @Value("${servicios.buque.url}")
@@ -21,14 +22,6 @@ public class BuqueService {
 
     private final RestTemplate restTemplate;
 
-    @Autowired
-    public BuqueService(@Value("${servicios.buque.url}") String buqueServiceUrl, RestTemplate restTemplate) {
-        this.buqueServiceUrl = buqueServiceUrl;
-        this.restTemplate = restTemplate;
-    }
-    public BuqueService(RestTemplate restTemplate) {
-        this.restTemplate = restTemplate;
-    }
 
     public BuqueDTO buqueDB(String cod_Buque){
        try {

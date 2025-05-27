@@ -1,15 +1,17 @@
 
 package com.cordy.bol.service;
 
-import com.cordy.bol.dto.BuqueDTO;
-import com.cordy.bol.dto.PuertoDTO;
-import com.cordy.bol.model.*;
-import com.cordy.bol.repository.BoletaRepository;
+import java.util.List;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-import java.util.List;
+import com.cordy.bol.dto.BuqueDTO;
+import com.cordy.bol.dto.PuertoDTO;
+import com.cordy.bol.model.Boleta;
+import com.cordy.bol.model.calculoHoras;
+import com.cordy.bol.repository.BoletaRepository;
 
 @Service
 @Transactional
@@ -23,7 +25,7 @@ public class BoletaService {
     private BoletaRepository boletaRepository;
 
 
-    public double calcular(String cod_buque, Long id_puerto) {
+    public double calcular(String cod_buque, Integer id_puerto) {
         BuqueDTO buque = buqueService.buqueDB(cod_buque);
         PuertoDTO puerto = puertoService.puertoDB(id_puerto);
 
@@ -48,6 +50,10 @@ public class BoletaService {
     public  Boleta findById(String idBoleta){
         return boletaRepository.findById(idBoleta).
                 orElseThrow(()-> new RuntimeException("Boleta no encontrada"));
+    }
+    
+    public Boleta save(Boleta boleta) {
+        return boletaRepository.save(boleta);
     }
 }
 
