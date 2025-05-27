@@ -7,40 +7,41 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-import com.cordy.bol.dto.BuqueDTO;
-import com.cordy.bol.dto.PuertoDTO;
 import com.cordy.bol.model.Boleta;
+import com.cordy.bol.model.Buque;
+import com.cordy.bol.model.Puerto;
 import com.cordy.bol.model.calculoHoras;
 import com.cordy.bol.repository.BoletaRepository;
+import com.cordy.bol.repository.BuqueRepository;
+import com.cordy.bol.repository.PuertoRepository;
 
 @Service
 @Transactional
 public class BoletaService {
 
     @Autowired
-    private PuertoService puertoService;
+    private PuertoRepository puertoRepository;
     @Autowired
-    private BuqueService buqueService;
+    private BuqueRepository buqueRepository;
     @Autowired
     private BoletaRepository boletaRepository;
 
 
-    public double calcular(String cod_buque, Integer id_puerto) {
-        BuqueDTO buque = buqueService.buqueDB(cod_buque);
-        PuertoDTO puerto = puertoService.puertoDB(id_puerto);
+    public double calcular(String codBuque, Integer id_puerto) {
+        Buque buque = buqueRepository.findById(codBuque)
+                .orElseThrow(() -> new IllegalArgumentException("Buque no encontrado"));
+        Puerto puerto = puertoRepository.
+        findById(id_puerto).orElseThrow(() -> new IllegalArgumentException("Puerto no encontrado"));
 
-        if(buque==null || puerto==null){
-            throw new IllegalArgumentException("Datos incorrectos");
 
-        }
 
-        long horasEnPuerto = calculoHoras.calcularHorasEnPuerto(buque.getFecha_llegada(), buque.getFecha_salida());
+        long horasEnPuerto = calculoHoras.calcularHorasEnPuerto(buque.getFechaLlegada(), buque.getFechaPartida());
 
-        double tarifaEslora = puerto.getTarifa_eslora() > 0
-                ? puerto.getTarifa_eslora()
-                : puerto.getTarifa_hora();
+        double tarifaEslora = puerto.getTarifaHora() > 0
+                ? puerto.getTarifaEslora()
+                : puerto.getTarifaHora();
 
-        return (tarifaEslora * buque.getEslora()) + (puerto.getTarifa_hora() * horasEnPuerto);
+        return (tarifaEslora * buque.getEslora()) + (puerto.getTarifaHora() * horasEnPuerto);
     }
 
     public List<Boleta> findAll(){

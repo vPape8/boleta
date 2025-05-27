@@ -6,7 +6,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.web.client.RestClientException;
 import org.springframework.web.client.RestTemplate;
 
-import com.cordy.bol.dto.BuqueDTO;
+import com.cordy.bol.model.Buque;
 
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
@@ -23,11 +23,11 @@ public class BuqueService {
     private final RestTemplate restTemplate;
 
 
-    public BuqueDTO buqueDB(String cod_Buque){
+    public Buque buqueDB(String cod_Buque){
        try {
             return restTemplate.getForObject(
                     buqueServiceUrl + "/buques/" + cod_Buque,
-                    BuqueDTO.class
+                    Buque.class
             );
        }catch (RestClientException e){
             log.error("Error al obtener informacion del buque: {}", e.getMessage());

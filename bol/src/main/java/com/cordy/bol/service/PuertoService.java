@@ -6,7 +6,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.web.client.RestClientException;
 import org.springframework.web.client.RestTemplate;
 
-import com.cordy.bol.dto.PuertoDTO;
+import com.cordy.bol.model.Puerto;
 
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
@@ -21,11 +21,11 @@ public class PuertoService {
 
     private final RestTemplate restTemplate;
 
-    public PuertoDTO puertoDB(Integer id_puerto) {
+    public Puerto puertoDB(Integer id_puerto) {
         try {
             return restTemplate.getForObject(
                     puertoServiceUrl + "/puertos/" + id_puerto,
-                    PuertoDTO.class
+                    Puerto.class
             );
         } catch (RestClientException e) {
             log.error("Error al obtener información del puerto: {}", e.getMessage());
