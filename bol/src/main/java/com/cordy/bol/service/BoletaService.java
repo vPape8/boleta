@@ -35,13 +35,13 @@ public class BoletaService {
 
 
 
-        long horasEnPuerto = calculoHoras.calcularHorasEnPuerto(buque.getFechaLlegada(), buque.getFechaPartida());
+        long horasEnPuerto = calculoHoras.calcularHorasEnPuerto(buque.getFecha_llegada(), buque.getFecha_partida());
 
-        double tarifaEslora = puerto.getTarifaHora() > 0
-                ? puerto.getTarifaEslora()
-                : puerto.getTarifaHora();
+        double tarifaEslora = puerto.getTarifa_hora() > 0
+                ? puerto.getTarifa_eslora()
+                : puerto.getTarifa_hora();
 
-        return (tarifaEslora * buque.getEslora()) + (puerto.getTarifaHora() * horasEnPuerto);
+        return (tarifaEslora * buque.getEslora()) + (puerto.getTarifa_hora() * horasEnPuerto);
     }
 
     public List<Boleta> findAll(){

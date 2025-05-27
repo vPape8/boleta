@@ -20,17 +20,17 @@ import lombok.NoArgsConstructor;
 public class Buque {
 
     @Id
-    private String codBuque;
-
-    @Column(nullable = false)
-    private String nombreBuque;
+    private String cod_buque;
 
     @Column(nullable = false)
     private float eslora;
 
     @Column(nullable = false)
-    private Date fechaLlegada;
+    private Date fecha_llegada;
 
     @Column(nullable = false)
-    private Date fechaPartida;
+    private Date fecha_partida;
+    
+    @Column(nullable = false)
+    private String nombreBuque;
 }

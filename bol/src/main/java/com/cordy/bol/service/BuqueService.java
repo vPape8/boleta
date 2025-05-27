@@ -26,7 +26,7 @@ public class BuqueService {
     public Buque buqueDB(String cod_Buque){
        try {
             return restTemplate.getForObject(
-                    buqueServiceUrl + "/buques/" + cod_Buque,
+                    buqueServiceUrl + "/buque/" + cod_Buque,
                     Buque.class
             );
        }catch (RestClientException e){

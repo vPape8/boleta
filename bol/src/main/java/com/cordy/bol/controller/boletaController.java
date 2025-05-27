@@ -2,7 +2,6 @@ package com.cordy.bol.controller;
 
 import java.util.List;
 
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -23,7 +22,7 @@ import lombok.extern.slf4j.Slf4j;
 @RequiredArgsConstructor
 public class boletaController {
 
-    @Autowired
+
     private final BoletaService boletaService;
 
     @GetMapping("/GetCalculo/")
@@ -49,7 +48,7 @@ public class boletaController {
         return ResponseEntity.ok(boletas);
     }
 
-    @GetMapping("/GetBoletID/")
+    @GetMapping("/GetBoletaID/")
     public ResponseEntity<Boleta> getBoletaById(
             @RequestParam(name = "id_boleta", required = true) String idBoleta
     ) {
