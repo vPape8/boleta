@@ -49,6 +49,21 @@ public class boletaController {
         return ResponseEntity.ok(boletas);
     }
 
+    @GetMapping("/GetBoletaID/")
+    public ResponseEntity<Boleta> getBoletaById(
+            @RequestParam(name = "idBoleta", required = true) String idBoleta
+    ) {
+        log.info("Buscando boleta con id: {}", idBoleta);
+        try {
+            Boleta boleta = boletaService.findById(idBoleta);
+            return ResponseEntity.ok(boleta);
+        } catch (RuntimeException e) {
+            log.error("Error al buscar boleta por ID", e);
+            return ResponseEntity.notFound().build();
+        }   
+    }
+
+
     @PostMapping("/PostCalculo/")
     public ResponseEntity<Boleta> guardarCalculo(
             @RequestParam(name = "cod_buque", required = true) String codBuque,
