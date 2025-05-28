@@ -7,6 +7,5 @@ import org.springframework.stereotype.Repository;
 import com.cordy.bol.model.Buque;
 
 @Repository
-public interface BuqueRepository extends JpaRepository<Buque, String>{
-}
+public interface BuqueRepository extends JpaRepository<Buque, String>{}
 

@@ -28,16 +28,17 @@ public class boletaController {
     @GetMapping("/GetCalculo/")
     public ResponseEntity<Double> calculoService(
             @RequestParam(name = "cod_buque", required = true)String codBuque,
-            @RequestParam(name = "id_puerto", required = true)Integer idPuerto
-    ) { log.info("cod_buque: {}, id_puerto: {}", codBuque, idPuerto);
+            @RequestParam(name = "id_puerto", required = true)Integer idPuerto,
+            @RequestParam(name = "id_funcionario", required = true) Integer id 
+    ) { log.info("cod_buque: {}, id_puerto: {}, id {}", codBuque, idPuerto,id);
         try {
-            double costo = boletaService.calcular(codBuque, idPuerto);
+            double costo = boletaService.calcular(codBuque, idPuerto,id);
             return ResponseEntity.ok(costo);
         } catch (Exception e) {
             log.error("Error en calculoService", e);
             return ResponseEntity.badRequest().body(null);
         }
-    }
+    } 
 
     @GetMapping("/GetBoletas/")
     public  ResponseEntity<List<Boleta>> listar(){
@@ -62,29 +63,25 @@ public class boletaController {
         }   
     }
 
-
-    @PostMapping("/PostCalculo/")
-    public ResponseEntity<Boleta> guardarCalculo(
+    @PostMapping("/PostBoleta/")
+    public ResponseEntity<Boleta> guardarBoleta(
             @RequestParam(name = "cod_buque", required = true) String codBuque,
-            @RequestParam(name = "id_puerto", required = true) Integer idPuerto
+            @RequestParam(name = "id_puerto", required = true) Integer idPuerto,
+            @RequestParam(name = "id_funcionario", required = true) Integer id // id funcionario
     ) {
-        log.info("Guardando cálculo para cod_buque: {}, id_puerto: {}", codBuque, idPuerto);
+        log.info("Guardando boleta para cod_buque: {}, id_puerto: {}, id_funcionario: {}", codBuque, idPuerto, id);
         try {
-            double costo = boletaService.calcular(codBuque, idPuerto);
-
             
-            Boleta boleta = new Boleta();
-            boleta.setIdBoleta(codBuque + "-" + idPuerto); 
-            boleta.setMonto(costo);
-            boleta.setFecha_emision(new java.sql.Date(System.currentTimeMillis()));
-
-            
-            Boleta savedBoleta = boletaService.save(boleta);
+            Boleta savedBoleta = boletaService.crearYGuardarBoleta(codBuque, idPuerto, id);
 
             return ResponseEntity.ok(savedBoleta);
-        } catch (Exception e) {
-            log.error("Error al guardar cálculo", e);
-            return ResponseEntity.badRequest().build();
+        } catch (IllegalArgumentException e) { 
+            log.error("Error al guardar boleta: {}", e.getMessage());
+            
+            return ResponseEntity.badRequest().build(); 
+        } catch (Exception e) { 
+            log.error("Error inesperado al guardar boleta", e);
+            return ResponseEntity.internalServerError().build();
         }
     }
 }

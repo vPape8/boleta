@@ -6,6 +6,4 @@ import org.springframework.stereotype.Repository;
 import com.cordy.bol.model.Puerto;
 
 @Repository
-public interface PuertoRepository extends JpaRepository<Puerto, Integer> {
-
-}
+public interface PuertoRepository extends JpaRepository<Puerto, Integer> {}
